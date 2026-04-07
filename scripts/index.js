@@ -32,6 +32,7 @@ function fetchStudentsFromLocalStorage(){
        const row = `
            <tr>
                <td>${student.name} (${student.id})</td>
+               <td>${student.email || 'N/A'}</td>
                <td>${math}</td>
                <td>${english}</td>
                <td>${science}</td>
