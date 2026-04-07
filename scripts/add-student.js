@@ -21,6 +21,13 @@ function saveStudentInfo(event){
     let $englishGrade = $('#englishGrade').val();
     let $scienceGrade = $('#scienceGrade').val();
 
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test($studentEmail)) {
+        alert('Please enter a valid email address.');
+        return;
+    }
+
     console.log('Student Name:', $studentName);
 
     let newStudent = {
