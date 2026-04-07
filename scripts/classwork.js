@@ -25,7 +25,8 @@ function displayQuestions(questions) {
         const options = [...q.incorrect_answers, q.correct_answer].sort(() => Math.random() - 0.5);
         html += `
             <div class="mb-4">
-                <h5>Question ${index + 1}: ${q.question}</h5>
+                <h5 id="question${index}">Question ${index + 1}: ${q.question}</h5>
+                <button class="btn btn-sm btn-info mb-2" onclick="translateQuestion(${index}, '${q.question.replace(/'/g, "\\'")}')">Translate to Spanish</button>
                 <div class="form-check">
                     ${options.map(option => `
                         <div class="form-check">
@@ -38,5 +39,27 @@ function displayQuestions(questions) {
         `;
     });
     $('#questionsContainer').html(html);
+}
+
+function translateQuestion(index, originalText) {
+    const apiUrl = 'https://libretranslate.com/translate';
+    const data = {
+        q: originalText,
+        source: 'en',
+        target: 'es'
+    };
+
+    $.ajax({
+        url: apiUrl,
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function(response) {
+            $(`#question${index}`).text(`Question ${index + 1}: ${response.translatedText}`);
+        },
+        error: function() {
+            alert('Error translating question.');
+        }
+    });
 }</content>
 <parameter name="filePath">c:\Users\HP\Desktop\detyr klase\SWE02-2526\scripts\classwork.js
